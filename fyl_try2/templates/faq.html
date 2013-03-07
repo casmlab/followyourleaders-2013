@@ -5,19 +5,34 @@
 
 <br>
 <br>
-
-FAQ Page
-FAQ Page
 Don't see the answer to your question? Click <a href="#faq_form" data-toggle="modal"> here </a> to send your question to us.
 <br>
+
+	<h2 id="what_is_follow_your_leaders?">What is Follow Your Leaders?</h2>
+<p>	Follow Your Leaders is the website for a research project that helps you see how elected officials use social media, especially Twitter. We collect tweets from Twitter and combine them with data from other sources like roll call votes, fundraising efforts, and the Census to show trends and differences in how politicians use social media.</p>
+
+	<h2 id="how_do_you_get_the_data?">How do you get the data?</h2>
+	<p>We've been collecting data since the summer of 2011 using the <a href="https://dev.twitter.com/docs/streaming-apis">Twitter Streaming API</a>. We currently use a <a href="http://www.python.org/">Python</a> application to retrieve data from Twitter, parse the data, and store it in <a href="http://www.mysql.com/">MySQL</a> databases. The code for <a href="https://github.com/casmlab/pyTwitterCollector">our latest collector application</a> is available on Github.</p>
 <br>
-<p>
-	Question 1
-	<br>
-	Question 2
-	<br>
-	Question 3
-	<br>
+	We also pull data from other public sources including
+	<ul>
+	<li><a href="http://www.congress.org">Congress.org</a></li>
+	<li><a href="http://www.govtrack.us">govtrack.us</a></li>
+	<li><a href="http://www.voteview.com">Voteview.com</a></li>
+	</ul>
+
+	<h2 id="how_can_i_find_politicians_on_twitter?">How can I find politicians on Twitter?</h2>
+	We curate lists for the following groups of leaders:
+	<ul>
+	<li><a href="https://twitter.com/CaSMLab/u-s-house-of-reps-113th/members">U.S. House of Representatives</a></li>
+	<li><a href="https://twitter.com/CaSMLab/u-s-senate-113th/members">U.S. Senate</a></li>
+	<li><a href="https://twitter.com/CaSMLab/eu-parliament/members">European Parliament</a></li>
+	<li><a href="https://twitter.com/CaSMLab/korea/members">National Assembly of the Republic of Korea</a></li>
+	<li><a href="https://twitter.com/CaSMLab/chicago-aldermen/members">Chicago City Council</a></li>
+	</ul>
+
+<h2 id="what_is_an_n-gram?">What is an n-gram?</h2>	
+<p>Technially, an n-gram is a contiguous sequence of n items from a given snippet of text or speech. For our purposes, n-grams are words or phrases that appear in tweets, such as "Obamacare" (a 1-gram) or "tax hike" (a 2-gram). The n-gram viewer shows how often that n-gram appears in our dataset, or in the subset you've selected, over time.
 </p>
 
 <div class="modal hide fade" id="faq_form">
