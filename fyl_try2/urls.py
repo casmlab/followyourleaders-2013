@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^$', 'fyl_try2.views.index'),
     url(r'^faq$', 'fyl_try2.views.faq', name='faq'),
     url(r'^about$', 'fyl_try2.views.about', name='about'),
-    url(r'^contact$', 'fyl_try2.views.contact', name='contact'),
+#    url(r'^contact$', 'fyl_try2.views.contact', name='contact'),
     url(r'^us-congress$', 'fyl_try2.views.get_us_congress', name='us-congress'),
 
     
