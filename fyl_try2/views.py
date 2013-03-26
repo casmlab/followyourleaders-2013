@@ -64,14 +64,25 @@ def get_recent_tweet():
     
 def get_us_congress(request): 
     cursor = connection.cursor()
-    cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
+    query='''
+        SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url FROM 
+        (SELECT * from tweets order by tweet_id  desc limit 30) as tweets,
+        TwitterCollector.user_info as user_info
+        where 
+        tweets.user_id=
+        user_info.user_id
+        group by name
+        order by tweet_id  desc limit 30;'''
+    cursor.execute(query)
+    #cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
     row = cursor.fetchall()
-    print row
+    print type( row)
 
     t = loader.get_template('us-congress.html')
     c = Context({'row':row})
     return HttpResponse(t.render(c))
-    pass
+
+
 
 def get_latest_tweet(request):
     pass
