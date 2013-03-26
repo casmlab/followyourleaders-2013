@@ -3,6 +3,74 @@
 
 {% block content %} 
 
+
+
+<style type="text/css">
+
+
+pre {
+	font-family: Monaco, "Courier New";
+	font-size: 12px;
+	line-height: 1.6;
+	background:       #FDFAF8;
+	color:            #222;
+	padding:          15px;
+	border: 1px solid #DBD1B3;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+hr {
+	border:           0;
+	width:            80%;
+	border-bottom:    1px solid #aaa
+}
+
+.tweets {
+	background: #444;
+	padding: 1px 5px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+.tweets .loading {
+	padding: 10px 20px;
+	color: #ccc;
+}
+
+.tweet {
+	font-size: 13px;
+	background: #fff;
+	margin: 4px 0;
+	padding: 8px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+.tweet img {
+	float: left;
+}
+.tweet .text {
+	margin: 0;
+	margin-left: 44px;
+}
+.tweet .username {
+	display: block;
+}
+.tweet .username a {
+	font-weight: bold;
+	text-decoration: none;
+	color: #111;
+}
+.tweet .time a {
+	font-size: 80%;
+	color: #888;
+	white-space: nowrap;
+	text-decoration: none;
+	padding-left: 8px;
+}
+
+</style>
+
+
 <div align="center">
 	<div class="row">
 		<div class="well">
@@ -20,7 +88,33 @@
 <div class="row-fluid">
 <div align="center"><h4>Tweets</h4></div>
 {% for r in row %}
-<div align="center">{{r}} </div>
+
+
+
+
+
+
+
+
+	<div id="container">
+	<div id="example" class="tweets">
+
+
+
+
+<div id="container">
+	<div id="example" class="tweets">
+	<div class="tweet tweet-{{r.0}}">
+	<img width="32" height="32" src={{r.3}}>
+	<p class="text"><span class="username"><a href="http://twitter.com/#!/{{r.4}}">{{r.1}}</a>:</span> {{r.2}}
+		<span class="time"><a href={{r.5	}}> {{r.0}} 3 days ago</a></span>
+	</p>
+</div>
+</div>
+</div>
+
+
+<!-- <div align="center">{{r}} </div> -->
 {% endfor %}
 </div>
 </div>
