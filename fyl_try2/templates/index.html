@@ -1,58 +1,39 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
 
-{% block content %} 
-<div style="margin-left: 5%; margin-right:10%">
-<div style="color: #333333; margin-top: 3%;margin-bottom: 20%;" class="container-fluid ">
-    <h1> Follow Your Leaders</h1>
-    
-    <div style="float: left;" class="container-fluid ">
-		<canvas  id="arrow"></canvas>
+{% block content %}
+<div style="color: #333333; margin-bottom:5%;" class="container-fluid " id="homepage_header">
+	<h1> Follow Your Leaders</h1>
+
+	<!-- <div style="float: left;" class="container-fluid ">
+	<canvas  id="arrow"></canvas>
+	</div> -->
+</div>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span9">
+			<div style=" color: #FF9900; ">
+				<div class="span6 offset4" id="main_menu_options" style="margin-top: 15%;">
+					<a style="color: #FF9900"href="/us-congress" ><label  style="font-size: 24px;">US Congress</label></a>
+					<a style="color: #FF9900"href="/" ><label style="font-size: 24px;">Korean National Assembly</label></a>
+					<a style="color: #FF9900"href="/" ><label style="font-size: 24px;">EU Parliament</label></a>
+				</div>
+			</div>
+		</div>
+		<div class="span3" style="border: 1px solid #ccc;
+				color: #FF9900;
+				background-color: #FFCC9F;">
+			<h4>Recent Updates</h4>
+
+			{% for r in row %}
+			<div align="center">
+				{{r}}
+			</div>
+			{% endfor %}
+		</div>
+
 	</div>
-
 </div>
 
-<div style="margin-top: 5%; " class="container-fluid ">
-<div style="border: 1px solid #ccc; 
-            color: #FF9900; 
-            background-color: #FFCC9F;
-            width: 20%; float: left;"class="container-fluid ">
-    
-    <div class="span12">
-        <h4>Recent Updates</h4>
-        
-        Tweets go here
-    </div>
-</div>
-
-
-
-<script>
-	var canvas = document.getElementById('arrow');
-    var ctx = canvas.getContext('2d');
-
-    ctx.beginPath();
-    
-    ctx.moveTo(50,50);
-    
-    ctx.lineTo(250,50);
-    ctx.lineTo(200,25);
-    
-    ctx.moveTo(250,50);
-    ctx.lineTo(200,75);
-    
-    ctx.stroke();
-</script>
-
-<div class="container-fluid ">
-    <div style="margin-top: -20%; margin-right: 35%; color: #FF9900; float: right;">
-    
-	        <a style="color: #FF9900"href="/us-congress" ><label  style="font-size: 17px;">US Congress</label></a>
-	        <label style="font-size: 17px;">Korean National Assembly</label>
-	        <label style="font-size: 17px;">EU Parliament</label>
-     
-    </div> 
-</div>
-</div>
-</div>
 {% endblock %}
