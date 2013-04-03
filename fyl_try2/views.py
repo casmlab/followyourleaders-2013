@@ -11,7 +11,8 @@ import json
 
 
 def index(request):
-    cursor = connection.cursor()
+    return get_us_congress(request)
+    '''cursor = connection.cursor()
     cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
     row = cursor.fetchall()
     print row
@@ -20,7 +21,7 @@ def index(request):
     c = Context({'row':row})
 #    c = Context({})
     return HttpResponse(t.render(c))
-    pass
+    pass'''
 
 def faq(request):
     if request.method == 'POST':
