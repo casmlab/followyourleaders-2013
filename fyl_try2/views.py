@@ -66,7 +66,7 @@ def get_recent_tweet():
 def get_us_congress(request): 
     cursor = connection.cursor()
     query='''
-        SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url FROM 
+        SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location FROM 
         (SELECT * from TwitterCollector_113thCongress.tweets order by tweet_id  desc limit 500) as tweets,
         TwitterCollector_113thCongress.user_info as user_info
         where 
@@ -77,7 +77,8 @@ def get_us_congress(request):
     cursor.execute(query)
     #cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
     row = cursor.fetchall()
-    print type( row)
+#    congressTweets = json.dumps(row);
+#    print type( congressTweets)
 
     t = loader.get_template('us-congress.html')
     c = Context({'row':row})

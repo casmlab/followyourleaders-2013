@@ -97,10 +97,9 @@ img {
 	-ms-interpolation-mode: bicubic;
 }
 
-#map_canvas img, .google-maps img {
+/*#map_canvas img, .google-maps img {
 	max-width: none;
-}
-
+}*/
 button, input, select, textarea {
 	margin: 0;
 	font-size: 100%;
@@ -912,7 +911,7 @@ pre {
 	white-space: pre;
 	white-space: pre-wrap;
 	background-color: #f5f5f5;
-	border: 1px solid #ccc;
+	border: 1px solid #f5f5f5;
 	border: 1px solid rgba(0, 0, 0, 0.15);
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
