@@ -6,6 +6,8 @@
 <script src="{{MEDIA_URL}}media/js/us-congress.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>
 <script>
+var tweetData={{congressArray|safe}};
+
 	var map;
 	function initialize() {
 		var mapOptions = {
@@ -13,7 +15,17 @@
 			center : new google.maps.LatLng(41.835265, -87.622279),
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		};
+		var latLng;
+		var marker;
 		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		for (var i = 0; i < tweetData.length; i++) {
+          // var coords = results.features[i].geometry.coordinates;
+          latLng = new google.maps.LatLng(parseFloat(tweetData[i][8]),parseFloat(tweetData[i][7]));
+          marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+        }
 	}
 
 
@@ -48,12 +60,11 @@ max= {{ row|length }};{% endblock %}
 				</div>
 			</div>
 			{% endfor %}
-			<!-- <div align="center">{{r}} </div> -->
-
+			
 		</div>
 	</div>
 	<br>
-	<!-- {{congressTweets}} -->
+ 
 	<div class="row-fluid">
 		<div class="span4">
 			<div id="public-maps" class="well-large">
