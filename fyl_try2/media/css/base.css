@@ -20,12 +20,12 @@ a:link, a:active, a:visited {
 	text-decoration: none;
 	/*font-weight: bold;*/
 }
-a:link, a:active {
+/*a:link, a:active {
 	color: #0c6;
 }
 a:visited {
 	color: #333;
-}
+}*/
  
 #wrap {
         min-height: 100%;
