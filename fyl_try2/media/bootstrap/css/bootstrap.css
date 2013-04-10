@@ -87,9 +87,8 @@ sup {
 sub {
 	bottom: -0.25em;
 }
-
 img {
-	width: auto\9;
+	width: auto;
 	height: auto;
 	max-width: 100%;
 	vertical-align: middle;
@@ -97,9 +96,10 @@ img {
 	-ms-interpolation-mode: bicubic;
 }
 
-/*#map_canvas img, .google-maps img {
+#map_canvas img, .google-maps img {
 	max-width: none;
-}*/
+}
+
 button, input, select, textarea {
 	margin: 0;
 	font-size: 100%;
@@ -140,7 +140,6 @@ textarea {
 	overflow: auto;
 	vertical-align: top;
 }
-
 @media print {
 	* {
 		color: #000 !important;
@@ -2452,7 +2451,6 @@ table td[class*="span"], table th[class*="span"], .row-fluid table td[class*="sp
 .icon-fullscreen {
 	background-position: -456px -144px;
 }
-
 .dropup, .dropdown {
 	position: relative;
 }

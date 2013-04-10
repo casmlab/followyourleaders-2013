@@ -7,9 +7,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>
 <script>
 var tweetData={{congressArray|safe}};
-
 	var map;
-	
 	google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {% endblock %}
@@ -89,11 +87,10 @@ max= {{ row|length }};{% endblock %}
 	<div class="row-fluid">
 		<div class="well-large">
 			<div class="span4 offset3">
-				<div id="map-canvas"></div>
+				<div id="map-canvas"></div> 
 			</div>
 		</div>
 	</div>
-
 </div>
 
 {% endblock %}
