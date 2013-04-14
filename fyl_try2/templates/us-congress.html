@@ -4,12 +4,6 @@
 {% block links %}
 <link href="{{MEDIA_URL}}media/css/us-congress.css" rel="stylesheet">
 <script src="{{MEDIA_URL}}media/js/us-congress.js" type="text/javascript"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>
-<script>
-var tweetData={{congressArray|safe}};
-	var map;
-	google.maps.event.addDomListener(window, 'load', initialize);
-</script>
 {% endblock %}
 {% block javascript %}
 max= {{ row|length }};{% endblock %}
@@ -48,7 +42,7 @@ max= {{ row|length }};{% endblock %}
 		<div class="span4">
 			<div id="public-maps" class="well-large">
 				<h3>Public</h3>
-				<span><a href="#political-maps">Political Map</a></span>
+				<span><a href="{% url fyl_try2.views.us_congress_pltcl_map %}">Political Map</a></span>
 				<br>
 				Network Map
 				<br>
@@ -59,7 +53,7 @@ max= {{ row|length }};{% endblock %}
 		</div>
 		<div class="span4">
 			<div id="centerdiv" class="well-large">
-				<h3>Public</h3>
+				<br><br>
 				Find Your Representative
 				<br>
 				Trends
@@ -79,18 +73,6 @@ max= {{ row|length }};{% endblock %}
 			</div>
 		</div>
 	</div>
-<br><br>
 
-<div class="page-header" align="center" id="political-maps">
-	<h1>Political Maps</h1>
-</div>
-	<div class="row-fluid">
-		<div class="well-large">
-			<div class="span4 offset3">
-				<div id="map-canvas"></div> 
-			</div>
-		</div>
-	</div>
-</div>
 
 {% endblock %}

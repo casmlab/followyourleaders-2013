@@ -14,15 +14,10 @@ h3 {
 	color:#FF7E33;
 	
 }
-#map-canvas {
-    width: 500px;
-    height: 400px;
-    background-color: #CCC;
- }
-#map-canvas img, .google-maps img {
-	max-width: none;
+#public-maps{
+	border-left: 2px #FFCC9F solid; height: 50%; margin-left: 25%;
+	font-size: 15px;
 }
-
 #tweetbox{
 	height: 240px;
     overflow: auto;
@@ -32,10 +27,7 @@ h3 {
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 }
-#public-maps{
-	border-left: 2px #FFCC9F solid; height: 50%; margin-left: 25%;
-	font-size: 15px;
-}
+
 #centerdiv{
 	font-size: 15px;
 }

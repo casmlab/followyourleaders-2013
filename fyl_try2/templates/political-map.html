@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %} US Congress {% endblock %}
+
+{% block links %}
+<link href="{{MEDIA_ROOT}}media/css/political-map.css" rel="stylesheet">
+<script src="{{MEDIA_ROOT}}media/js/political-map.js" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>
+<script>
+	var tweetData={{congressArray|safe}};
+	var map;
+	google.maps.event.addDomListener(window, 'load', initialize); 
+</script>
+{% endblock %}
+{% block javascript %}
+	max= {{ row|length }};
+{% endblock %}
+{% block navbar_title %} US Congress {% endblock %}
+{% block content %}
+
+<div class="page-header" align="center" id="political-maps">
+	<h1>Political Maps</h1>
+</div>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="well-large">
+			<div class="span4 offset3">
+				<div id="map-canvas"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

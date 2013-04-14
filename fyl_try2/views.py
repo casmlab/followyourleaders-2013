@@ -79,6 +79,13 @@ def get_us_congress(request):
     cursor.execute(query)
     #cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
     row = cursor.fetchall()
+
+    t = loader.get_template('us-congress.html')
+    c = Context({'row':row,})
+    return HttpResponse(t.render(c))
+
+def us_congress_pltcl_map(request):
+    cursor = connection.cursor()
     query='''
         SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
         (SELECT * from TwitterCollector_113thCongress.tweets order by tweet_id  desc limit 500) as tweets,
@@ -98,11 +105,9 @@ def get_us_congress(request):
     print congressArray
 #    print type( congressTweets)
 
-    t = loader.get_template('us-congress.html')
-    c = Context({'row':row,'congressArray':congressArray,})
+    t = loader.get_template('political-map.html')
+    c = Context({'congressArray':congressArray,})
     return HttpResponse(t.render(c))
-
-
 
 def get_latest_tweet(request):
     pass

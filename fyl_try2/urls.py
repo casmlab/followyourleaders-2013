@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^about$', 'fyl_try2.views.about', name='about'),
 #    url(r'^contact$', 'fyl_try2.views.contact', name='contact'),
     url(r'^us-congress$', 'fyl_try2.views.get_us_congress', name='us-congress'),
+    url(r'^us-congress-political-map$', 'fyl_try2.views.us_congress_pltcl_map', name='us-congress-map'),
 
     
 )
