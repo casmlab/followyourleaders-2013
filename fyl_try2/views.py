@@ -111,26 +111,42 @@ def us_congress_pltcl_map(request):
 	
 def us_congress_trends(request):
     trendsArray = [];
-    if request.method == 'POST':    
-        if request.POST['trend']:
-            trendValue = request.POST['trend']
+    trendValue = "";
+    if request.method == 'GET':
+        print "inside the get method"    
+        if request.GET['trend']:
+            trendValue = request.GET['trend']
             cursor = connection.cursor()
+            print 3 * '$$$$'
+            print trendValue
             query = '''
-            SELECT name,count(name),tweet_text  FROM 
-            (SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like '%{''' + trendValue + '''}%' order by tweet_id  ) as tweets,
+            SELECT name,count(name)  FROM 
+            (SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like %s order by tweet_id  ) as tweets,
             TwitterCollector_113thCongress.user_info as user_info
             where 
             tweets.user_id= user_info.user_id
             group by name
             order by tweet_id  desc limit 30000;'''
-            cursor.execute(query)
+            args = ('%' + trendValue + '%')
+            print "Query: "+query
+            cursor.execute(query, args)
             tempArray = cursor.fetchall()
-            trendsArray = convert_tuple_array(tempArray);
+            print 3 * '$$$$'
+            temp = [[], []]
+#           print trendsArray
+            trendsArray = list(tempArray)
+            temp = [[row[i] for row in trendsArray] 
+                        for i in range(2)]
+#           temp=zip(*tempArray)
+#           print temp
+            trendsArray = json.dumps(temp, cls=DjangoJSONEncoder)
+            print tempArray
         else:
             trendsArray = [];
+        
     
     t = loader.get_template('trends.html')
-    c = Context({'trendsArray':trendsArray, })
+    c = Context({'trendsArray':trendsArray, 'trendValue':trendValue})
     return HttpResponse(t.render(c))
 
 	
@@ -141,6 +157,6 @@ def convert_tuple_array(tuple):
     tupleArray = list(tuple)  # convert to Array from tuple
     for i in range(0, len(tupleArray)):
         tupleArray[i] = list(tupleArray[i])
-        tupleArray[i][0] = str(tupleArray[i][0])  # date time format fixes
-    tupleArray = json.dumps(tupleArray, cls=DjangoJSONEncoder);
+
+#    tupleArray = json.dumps(tupleArray, cls=DjangoJSONEncoder);
     return tupleArray;
