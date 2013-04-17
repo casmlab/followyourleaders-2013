@@ -3,7 +3,7 @@
 {% block title %} US Congress Trends {% endblock %}
 
 {% block links %}
-<link href="{{MEDIA_ROOT}}media/css/political-map.css" rel="stylesheet">
+<link href="{{MEDIA_ROOT}}media/css/trends.css" rel="stylesheet">
 <script src="{{MEDIA_ROOT}}media/js/political-map.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -28,7 +28,7 @@ $(function () {
             xAxis: {
                 categories: tweetData[0],
                 title: {
-                    text: 'User Names'
+                    text: 'Members of Congress'
                 }
             },
             yAxis: {
@@ -66,7 +66,8 @@ $(function () {
                 enabled: false
             },
             series: [{
-                name: '{{trendValue}}',
+                name: 'tweets about "{{trendValue}}" ',
+                color: '#FF7E33',
                 data: tweetData[1]
             }]
         });
@@ -79,26 +80,24 @@ $(function () {
 	<h1>Trends</h1>
 </div>
 <div class="container-fluid" id="trends_intro" style="text-align: center;">
-	<p>
+	<p id="intro_to_trends">
 		Wonder what the politicians are talking about? Do they spend more time talking about Bieber than tax law? Search any topic and time to see what drew the tweets from the representatives.
 	</p>
 </div>
-<div class="container" style="alignment-adjust: center;">
+<div style="alignment-adjust: center;">
 	<form action="">
-		<label>Phrase Search</label>
-		<input name="trend" type="text" placeholder="ex golf, voting, gun control">
-		<button type="submit" class="btn">
+		<p id="formlabel">Phrase Search        </span><input name="trend" type="text" placeholder="ex golf, voting, gun control">
+		<button type="submit" class="btn btn-warning" id="search_button">
 			Search
-		</button>
+		</button></p>
 	</form>
 </div>
 <hr>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span4" id="trend_recommendations">
-			This is where the Recommended topics will be
 			<div class="row-fluid">
-				<h4>Recommended Topics</h4>
+				<h3>Recommended Topics</h3>
 				<br>
 				Bailout
 				<br>
@@ -106,7 +105,7 @@ $(function () {
 				<br>
 			</div>
 			<div class="row-fluid">
-				<h4>Recent Searches</h4>
+				<h3>Recent Searches</h3>
 				<br>
 				Gun Control
 				<br>
@@ -114,11 +113,10 @@ $(function () {
 				<br>
 			</div>
 		</div>
-		<div class="well-large">
-			<div class="span6">
-				<div id="trends-canvas" style="min-height: 800px; height: 800px; margin: 0 auto"></div>
+			<div class="span8">
+				<div id="trends-canvas" style="height: 100%; width: 100%; margin: 0 auto"></div>
 			</div>
-		</div>
+
 	</div>
 </div>
 

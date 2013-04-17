@@ -120,7 +120,7 @@ def us_congress_trends(request):
             print 3 * '$$$$'
             print trendValue
             query = '''
-            SELECT name,count(name)  FROM 
+            SELECT name,count(name),tweet_text  FROM 
             (SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like %s order by tweet_id  ) as tweets,
             TwitterCollector_113thCongress.user_info as user_info
             where 
@@ -136,7 +136,7 @@ def us_congress_trends(request):
 #           print trendsArray
             trendsArray = list(tempArray)
             temp = [[row[i] for row in trendsArray] 
-                        for i in range(2)]
+                        for i in range(3)]
 #           temp=zip(*tempArray)
 #           print temp
             trendsArray = json.dumps(temp, cls=DjangoJSONEncoder)

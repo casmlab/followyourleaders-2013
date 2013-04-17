@@ -1,0 +1,14 @@
+#intro_to_trends, #trend_recommendations, #formlabel{
+	font-size: 15px;
+}
+h3 {
+	color:#FF7E33;
+	
+}
+#formlabel{
+	text-align:center;
+}
+#trends-canvas{
+	border: solid;
+	border-width: 1px;
+}
