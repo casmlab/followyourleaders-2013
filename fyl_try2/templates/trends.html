@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %} US Congress Trends {% endblock %}
+
+{% block links %}
+<link href="{{MEDIA_ROOT}}media/css/political-map.css" rel="stylesheet">
+<script src="{{MEDIA_ROOT}}media/js/political-map.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script>
+	var tweetData { { trendsArray
+		}
+	};
+	google.load('visualization', '1', {
+		packages : ['corechart']
+	}); 
+</script>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}
+{% block navbar_title %} US Congress {% endblock %}
+{% block content %}
+
+<div class="page-header" align="center" id="political-maps">
+	<h1>Trends</h1>
+</div>
+<div class="container-fluid" id="trends_intro" style="text-align: center;">
+	<p>
+		Wonder what the politicians are talking about? Do they spend more time talking about Bieber than tax law? Search any topic and time to see what drew the tweets from the representatives.
+	</p>
+</div>
+<div class="container" style="alignment-adjust: center;">
+	<form action="">
+		<label>Phrase Search</label>
+		<input name="trend" type="text" placeholder="ex golf, voting, gun control">
+		<button type="submit" class="btn">
+			Search
+		</button>
+	</form>
+</div>
+<hr>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span4" id="trend_recommendations">
+			This is where the Recommended topics will be
+			<div class="row-fluid">
+				<h4>Recommended Topics</h4>
+				<br>
+				Bailout
+				<br>
+				Israel
+				<br>
+			</div>
+			<div class="row-fluid">
+				<h4>Recent Searches</h4>
+				<br>
+				Gun Control
+				<br>
+				Boston Marathon
+				<br>
+			</div>
+		</div>
+		<div class="well-large">
+			<div class="span6">
+				<div id="trends-canvas"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

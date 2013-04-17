@@ -109,6 +109,19 @@ def us_congress_pltcl_map(request):
     c = Context({'congressArray':congressArray,})
     return HttpResponse(t.render(c))
 
+def us_congress_trends(request):
+    trendsArray=[];
+    if request.method == 'POST':    
+        if request.POST['trend'] and request.POST['q'].isdigit():
+            trendValue = request.POST['trend']
+        else:
+            errors = "<span style='color:red;'>Please input a correct string. </span> <br>"
+
+    
+    t = loader.get_template('trends.html')
+    c = Context({'trendsArray':trendsArray,})
+    return HttpResponse(t.render(c)) 
+
 def get_latest_tweet(request):
     pass
 
