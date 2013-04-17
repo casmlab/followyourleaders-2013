@@ -21,7 +21,7 @@ def index(request):
 #    
 #    t = loader.get_template('index.html')
 #    c = Context({'row':row})
-##    c = Context({})
+# #    c = Context({})
 #    return HttpResponse(t.render(c))
 #    pass
 
@@ -38,10 +38,10 @@ def faq(request):
             )
             return HttpResponseRedirect('/faq')
     else:
-        form = ContactForm() # An unbound form
+        form = ContactForm()  # An unbound form
         
     t = loader.get_template('faq.html')
-    c = Context({'form': form,})
+    c = Context({'form': form, })
     return HttpResponse(t.render(c))
     pass
 
@@ -62,12 +62,12 @@ def get_recent_tweet():
     cursor = connection.cursor()
     cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 1")
     row = cursor.fetchone()
-    print "Row is: " +row
+    print "Row is: " + row
     return HttpResponse (json.dumps(row), mimetype="application/json")
     
 def get_us_congress(request): 
     cursor = connection.cursor()
-    query='''
+    query = '''
         SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
         (SELECT * from TwitterCollector_113thCongress.tweets order by tweet_id  desc limit 500) as tweets,
         TwitterCollector_113thCongress.user_info as user_info
@@ -77,16 +77,16 @@ def get_us_congress(request):
         group by name
         order by tweet_id  desc limit 500;'''
     cursor.execute(query)
-    #cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
+    # cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
     row = cursor.fetchall()
 
     t = loader.get_template('us-congress.html')
-    c = Context({'row':row,})
+    c = Context({'row':row, })
     return HttpResponse(t.render(c))
 
 def us_congress_pltcl_map(request):
     cursor = connection.cursor()
-    query='''
+    query = '''
         SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
         (SELECT * from TwitterCollector_113thCongress.tweets order by tweet_id  desc limit 500) as tweets,
         TwitterCollector_113thCongress.user_info as user_info
@@ -97,63 +97,50 @@ def us_congress_pltcl_map(request):
         order by tweet_id  desc limit 500;'''
     cursor.execute(query)
     congressTweets = cursor.fetchall()
-    congressTArray = list(congressTweets) #convert to Array from tuple
-    for i in range(0,len(congressTArray)):
-        congressTArray[i]=list(congressTArray[i])
-        congressTArray[i][0]=str(congressTArray[i][0]) #date time format fixes
+    congressTArray = list(congressTweets)  # convert to Array from tuple
+    for i in range(0, len(congressTArray)):
+        congressTArray[i] = list(congressTArray[i])
+        congressTArray[i][0] = str(congressTArray[i][0])  # date time format fixes
     congressArray = json.dumps(congressTArray, cls=DjangoJSONEncoder);
     print congressArray
 #    print type( congressTweets)
 
     t = loader.get_template('political-map.html')
-    c = Context({'congressArray':congressArray,})
+    c = Context({'congressArray':congressArray, })
     return HttpResponse(t.render(c))
 	
 def us_congress_trends(request):
+    trendsArray = [];
     if request.method == 'POST':    
         if request.POST['trend']:
             trendValue = request.POST['trend']
+            cursor = connection.cursor()
+            query = '''
+            SELECT name,count(name),tweet_text  FROM 
+            (SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like '%{''' + trendValue + '''}%' order by tweet_id  ) as tweets,
+            TwitterCollector_113thCongress.user_info as user_info
+            where 
+            tweets.user_id= user_info.user_id
+            group by name
+            order by tweet_id  desc limit 30000;'''
+            cursor.execute(query)
+            tempArray = cursor.fetchall()
+            trendsArray = convert_tuple_array(tempArray);
         else:
-            errors = "<span style='color:red;'>Please input a correct trend. </span> <br>"
-	cursor = connection.cursor()
-    query='''
-			SELECT name,count(name),tweet_text  FROM 
-			(SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like '%{trendValue}%' order by tweet_id  ) as tweets,
-			TwitterCollector_113thCongress.user_info as user_info
-			where 
-			tweets.user_id= user_info.user_id
-			group by name
-			order by tweet_id  desc limit 30000;'''
-    cursor.execute(query)
-	trendsArray=convert_tuple_array(cursor.fetchall())
-    t = loader.get_template('trends.html')
-    c = Context({'trendsArray':trendsArray,})
-    return HttpResponse(t.render(c)) 
-
-def us_congress_trends(request):
-    trendsArray=[];
-    if request.method == 'POST':    
-        if request.POST['trend'] and request.POST['q'].isdigit():
-            trendValue = request.POST['trend']
-        else:
-            errors = "<span style='color:red;'>Please input a correct string. </span> <br>"
-
+            trendsArray = [];
     
     t = loader.get_template('trends.html')
-    c = Context({'trendsArray':trendsArray,})
-    return HttpResponse(t.render(c)) 
-
-def get_latest_tweet(request):
-    pass
+    c = Context({'trendsArray':trendsArray, })
+    return HttpResponse(t.render(c))
 
 	
-#util functions --to be moved into seperate class
+# util functions --to be moved into seperate class
 
 	
 def convert_tuple_array(tuple):
-    tupleArray = list(tuple) #convert to Array from tuple
-    for i in range(0,len(tupleArray)):
-        tupleArray[i]=list(tupleArray[i])
-        tupleArray[i][0]=str(tupleArray[i][0]) #date time format fixes
+    tupleArray = list(tuple)  # convert to Array from tuple
+    for i in range(0, len(tupleArray)):
+        tupleArray[i] = list(tupleArray[i])
+        tupleArray[i][0] = str(tupleArray[i][0])  # date time format fixes
     tupleArray = json.dumps(tupleArray, cls=DjangoJSONEncoder);
-	return tupleArray;
+    return tupleArray;
