@@ -118,7 +118,7 @@ def us_congress_trends(request):
 	cursor = connection.cursor()
     query='''
 			SELECT name,count(name),tweet_text  FROM 
-			(SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like '%jew%' order by tweet_id  ) as tweets,
+			(SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like '%{trendValue}%' order by tweet_id  ) as tweets,
 			TwitterCollector_113thCongress.user_info as user_info
 			where 
 			tweets.user_id= user_info.user_id
