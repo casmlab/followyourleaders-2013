@@ -68,14 +68,14 @@ def get_recent_tweet():
 def get_us_congress(request): 
     cursor = connection.cursor()
     query = '''
-        SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
-        (SELECT * from TwitterCollector_113thCongress.tweets order by tweet_id  desc limit 500) as tweets,
-        TwitterCollector_113thCongress.user_info as user_info
-        where 
-        tweets.user_id= user_info.user_id
-        and  user_info.user_id in (Select user_id from user_list )
-        group by name
-        order by tweet_id  desc limit 500;'''
+		SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
+		(SELECT * from TwitterCollector.tweets order by tweet_id  desc limit 300000) as tweets,
+		TwitterCollector.user_info as user_info
+		where 
+		tweets.user_id= user_info.user_id
+		and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
+		group by name
+		order by tweet_id  desc limit 500;'''
     cursor.execute(query)
     # cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
     row = cursor.fetchall()
@@ -88,10 +88,11 @@ def us_congress_pltcl_map(request):
     cursor = connection.cursor()
     query = '''
         SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
-        (SELECT * from TwitterCollector_113thCongress.tweets order by tweet_id  desc limit 500) as tweets,
-        TwitterCollector_113thCongress.user_info as user_info
+        (SELECT * from TwitterCollector.tweets order by tweet_id  desc limit 500) as tweets,
+        TwitterCollector.user_info as user_info
         where 
         tweets.user_id= user_info.user_id
+		and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
         and tweets.geo_lat != 0
         group by name
         order by tweet_id  desc limit 500;'''
@@ -121,10 +122,11 @@ def us_congress_trends(request):
             print trendValue
             query = '''
             SELECT name,count(name)  FROM 
-            (SELECT * from TwitterCollector_113thCongress.tweets where  tweets.tweet_text like %s order by tweet_id  ) as tweets,
-            TwitterCollector_113thCongress.user_info as user_info
+            (SELECT * from TwitterCollector.tweets where  tweets.tweet_text like %s order by tweet_id  ) as tweets,
+            TwitterCollector.user_info as user_info
             where 
             tweets.user_id= user_info.user_id
+			and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
             group by name
             order by tweet_id  desc limit 30000;'''
             args = ('%' + trendValue + '%')
