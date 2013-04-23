@@ -69,13 +69,12 @@ def get_us_congress(request):
     cursor = connection.cursor()
     query = '''
 		SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
-		(SELECT * from TwitterCollector.tweets order by tweet_id  desc limit 300000) as tweets,
+		(SELECT * from TwitterCollector.tweets  where tweets.user_id in (Select user_id from TwitterCollector_113thCongress.user_list ) order by tweet_id  desc limit 500) as tweets,
 		TwitterCollector.user_info as user_info
 		where 
 		tweets.user_id= user_info.user_id
-		and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
 		group by name
-		order by tweet_id  desc limit 500;'''
+		order by tweet_id  desc limit 20;'''
     print "Query: "+query   
     cursor.execute(query)
     # cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
@@ -88,15 +87,14 @@ def get_us_congress(request):
 def us_congress_pltcl_map(request):
     cursor = connection.cursor()
     query = '''
-        SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
-        (SELECT * from TwitterCollector.tweets order by tweet_id  desc limit 500) as tweets,
-        TwitterCollector.user_info as user_info
-        where 
-        tweets.user_id= user_info.user_id
-		and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
-        and tweets.geo_lat != 0
-        group by name
-        order by tweet_id  desc limit 500;'''
+		SELECT created_at,name,tweet_text,image_url,screen_name,tweet_url,location, geo_lat, geo_long  FROM 
+		(SELECT * from TwitterCollector.tweets where tweets.user_id in (Select user_id from TwitterCollector_113thCongress.user_list ) order by tweet_id  desc limit 5000) as tweets,
+		TwitterCollector.user_info as user_info
+		where 
+		tweets.user_id= user_info.user_id
+		and tweets.geo_lat != 0
+		group by name
+		order by tweet_id  desc limit 500;'''
     cursor.execute(query)
     congressTweets = cursor.fetchall()
     congressTArray = list(congressTweets)  # convert to Array from tuple
@@ -122,14 +120,13 @@ def us_congress_trends(request):
             print 3 * '$$$$'
             print trendValue
             query = '''
-            SELECT name,count(name)  FROM 
-            (SELECT * from TwitterCollector.tweets where  tweets.tweet_text like %s order by tweet_id  ) as tweets,
-            TwitterCollector.user_info as user_info
-            where 
-            tweets.user_id= user_info.user_id
-			and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
-            group by name
-            order by tweet_id  desc limit 300;'''
+				SELECT name,count(name)  FROM 
+				(SELECT * from TwitterCollector.tweets where  tweets.tweet_text like %s  and tweets.user_id in (Select user_id from TwitterCollector_113thCongress.user_list ) order by tweet_id  ) as tweets,
+				TwitterCollector.user_info as user_info
+				where 
+				tweets.user_id= user_info.user_id
+				group by name
+				order by count(name)  desc limit 15;'''
             args = ('%' + trendValue + '%')
             print "Query: "+query
             cursor.execute(query, args)
@@ -139,7 +136,7 @@ def us_congress_trends(request):
 #           print trendsArray
             trendsArray = list(tempArray)
             temp = [[row[i] for row in trendsArray] 
-                        for i in range(3)]
+                        for i in range(2)]
 #           temp=zip(*tempArray)
 #           print temp
             trendsArray = json.dumps(temp, cls=DjangoJSONEncoder)
