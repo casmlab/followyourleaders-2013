@@ -112,6 +112,8 @@ def us_congress_pltcl_map(request):
 def us_congress_trends(request):
     trendsArray = [];
     trendValue = "";
+    recommended=["Bailout","Boston"];
+    recent=["Gun Control","Boston Marathon"];
     
     if (request.method and request.method == 'GET'):
         print "inside the get method"    
@@ -147,7 +149,8 @@ def us_congress_trends(request):
         
     
     t = loader.get_template('trends.html')
-    c = Context({'trendsArray':trendsArray, 'trendValue':trendValue})
+    c = Context({'trendsArray':trendsArray, 'trendValue':trendValue, 'recommended':recommended, 
+                 'recent':recent})
     return HttpResponse(t.render(c))
 
 	
