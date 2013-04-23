@@ -14,6 +14,11 @@ h3 {
 	color:#FF7E33;
 	
 }
+img{
+	width:48px;
+	height:48px;
+}
+
 #public-maps{
 	border-left: 2px #FFCC9F solid; height: 50%; margin-left: 25%;
 	font-size: 15px;

@@ -13,3 +13,4 @@ parts
 project/media/uploads
 tmp
 .DS_Store
+settings.py

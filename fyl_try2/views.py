@@ -112,9 +112,10 @@ def us_congress_pltcl_map(request):
 def us_congress_trends(request):
     trendsArray = [];
     trendValue = "";
-    if request.method == 'GET':
+    
+    if (request.method and request.method == 'GET'):
         print "inside the get method"    
-        if request.GET['trend']:
+        if 'trend' in request.GET:
             trendValue = request.GET['trend']
             cursor = connection.cursor()
             print 3 * '$$$$'
