@@ -76,6 +76,7 @@ def get_us_congress(request):
 		and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
 		group by name
 		order by tweet_id  desc limit 500;'''
+    print "Query: "+query   
     cursor.execute(query)
     # cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 5")
     row = cursor.fetchall()
@@ -128,7 +129,7 @@ def us_congress_trends(request):
             tweets.user_id= user_info.user_id
 			and  user_info.user_id in (Select user_id from TwitterCollector_113thCongress.user_list )
             group by name
-            order by tweet_id  desc limit 30000;'''
+            order by tweet_id  desc limit 300;'''
             args = ('%' + trendValue + '%')
             print "Query: "+query
             cursor.execute(query, args)
