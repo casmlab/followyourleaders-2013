@@ -58,6 +58,12 @@ def about(request):
     return HttpResponse(t.render(c))
     pass
 
+def custom_404_view(request):
+    t = loader.get_template('404.html')
+    c = Context({})
+    return HttpResponse(t.render(c))
+    pass
+
 def get_recent_tweet():
     cursor = connection.cursor()
     cursor.execute("SELECT tweet_text from tweets order by tweet_id  desc limit 1")

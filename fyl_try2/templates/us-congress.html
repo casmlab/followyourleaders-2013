@@ -28,7 +28,7 @@ max= {{ row|length }};{% endblock %}
 					<div class="tweet tweet-{{r.0}}" id="tweet-{{forloop.counter}}" style="display:none;">
 						<img width="40" height="40" src={{r.3}}>
 						<p class="text">
-							<span class="username"><a href="http://twitter.com/#!/{{r.4}}">{{r.1}}</a>:</span> {{r.2}} <span class="time"><a href={{r.5	}}> {{r.0}} </a></span>
+							<span class="username"><a href="http://twitter.com/#!/{{r.4}}" target="_blank">{{r.1}}</a>:</span> {{r.2}} <span class="time"><a href="{{r.5}}" target="_blank"> {{r.0}} </a></span>
 						</p>
 					</div>
 				</div>

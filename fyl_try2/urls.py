@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.conf.urls.defaults import handler404, handler500
 
 
 # Uncomment the next two lines to enable the admin:
@@ -25,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^us-congress$', 'fyl_try2.views.get_us_congress', name='us-congress'),
     url(r'^us-congress-political-map$', 'fyl_try2.views.us_congress_pltcl_map', name='us-congress-map'),
     url(r'^us-congress-trends$', 'fyl_try2.views.us_congress_trends', name='us-congress-trends'),
-
-    
+   
 )
+handler404 = 'fyl_try2.views.custom_404_view'
+#handler500 = 'fyl_try2.views.custom_404_view'
